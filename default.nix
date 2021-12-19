@@ -26,9 +26,8 @@ in rec {
     '';
   };
   unit-tests = pkgs.callPackage ./unit-tests.nix {};
-} // (pkgs.lib.optionalAttrs pkgs.stdenv.isLinux {
   inherit sops-install-secrets;
-
+} // (pkgs.lib.optionalAttrs pkgs.stdenv.isLinux {
   lint = sops-install-secrets.overrideAttrs (old: {
     name = "golangci-lint";
     nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.golangci-lint ];
